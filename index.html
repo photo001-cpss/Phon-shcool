@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>ตัวอย่างช่องใส่รูปภาพ</title>
+  <title>ดาวน์โหลดภาพ</title>
   <style>
     body {
       font-family: 'Sarabun', sans-serif;
@@ -28,7 +28,7 @@
       border: 2px dashed #007acc;
       border-radius: 10px;
       padding: 10px;
-      width: 200px;
+      width: 220px;
       background: #ffffff;
       text-align: center;
       box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
@@ -91,19 +91,20 @@
 
   <h1>แกลเลอรีภาพนักเรียน</h1>
 
-  <div class="gallery" id="gallery">
-    <!-- รูปภาพจะใส่โดย JS -->
-  </div>
+  <div class="gallery" id="gallery"></div>
 
   <button class="download-all" onclick="downloadAll()">ดาวน์โหลดทั้งหมด</button>
 
-  <!-- JSZip สำหรับ zip -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
   <script>
     const images = [
-      { name: 'student1.jpg', url: 'https://via.placeholder.com/300x200?text=Student+1' },
-      { name: 'student2.jpg', url: 'https://via.placeholder.com/300x200?text=Student+2' },
-      { name: 'student3.jpg', url: 'https://via.placeholder.com/300x200?text=Student+3' }
+      { name: 'IMG_0506.jpeg', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_05063c0f1070d226dbd9.md.jpeg' },
+      { name: 'IMG_0507.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_05075e3b91983961c44e.md.png' },
+      { name: 'IMG_0501.png', url: 'https://img2.pic.in.th/pic/IMG_0501.md.png' },
+      { name: 'IMG_0498.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_0498e03c0989d88afd24.md.png' },
+      { name: 'IMG_0495.jpeg', url: 'https://img2.pic.in.th/pic/IMG_0495b476fba855ef560d.md.jpeg' },
+      { name: 'IMG_0496.png', url: 'https://img2.pic.in.th/pic/IMG_0496.md.png' },
+      { name: 'IMG_0497.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_04975ed57bbd0512f44e.md.png' }
     ];
 
     const gallery = document.getElementById('gallery');
@@ -139,7 +140,7 @@
       fetch(url)
         .then(response => {
           const reader = response.body.getReader();
-          const contentLength = +response.headers.get('Content-Length');
+          const contentLength = +response.headers.get('Content-Length') || 1000000;
           let received = 0;
           const chunks = [];
 
