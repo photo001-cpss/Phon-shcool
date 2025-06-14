@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ตัวอย่างช่องใส่รูปภาพ</title>
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: #f0f8ff;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 30px;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .image-card {
+      border: 2px dashed #007acc;
+      border-radius: 10px;
+      padding: 10px;
+      width: 200px;
+      background: #ffffff;
+      text-align: center;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .image-card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .download-btn {
+      margin-top: 10px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .download-btn:hover {
+      background-color: #005f99;
+    }
+
+    .progress {
+      width: 100%;
+      height: 10px;
+      background: #e0e0e0;
+      margin-top: 8px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: #4caf50;
+      width: 0%;
+    }
+
+    .download-all {
+      display: block;
+      margin: 40px auto 10px auto;
+      background-color: #004080;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .download-all:hover {
+      background-color: #002b5c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>แกลเลอรีภาพนักเรียน</h1>
+
+  <div class="gallery" id="gallery">
+    <!-- รูปภาพจะใส่โดย JS -->
+  </div>
+
+  <button class="download-all" onclick="downloadAll()">ดาวน์โหลดทั้งหมด</button>
+
+  <!-- JSZip สำหรับ zip -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+  <script>
+    const images = [
+      { name: 'student1.jpg', url: 'https://via.placeholder.com/300x200?text=Student+1' },
+      { name: 'student2.jpg', url: 'https://via.placeholder.com/300x200?text=Student+2' },
+      { name: 'student3.jpg', url: 'https://via.placeholder.com/300x200?text=Student+3' }
+    ];
+
+    const gallery = document.getElementById('gallery');
+
+    images.forEach((img, index) => {
+      const card = document.createElement('div');
+      card.className = 'image-card';
+
+      const image = document.createElement('img');
+      image.src = img.url;
+      card.appendChild(image);
+
+      const btn = document.createElement('button');
+      btn.className = 'download-btn';
+      btn.innerText = 'ดาวน์โหลดภาพนี้';
+      btn.onclick = () => downloadSingle(img.url, img.name, card);
+      card.appendChild(btn);
+
+      const progress = document.createElement('div');
+      progress.className = 'progress';
+      const bar = document.createElement('div');
+      bar.className = 'progress-bar';
+      progress.appendChild(bar);
+      card.appendChild(progress);
+
+      gallery.appendChild(card);
+    });
+
+    function downloadSingle(url, filename, card) {
+      const bar = card.querySelector('.progress-bar');
+      bar.style.width = '0%';
+
+      fetch(url)
+        .then(response => {
+          const reader = response.body.getReader();
+          const contentLength = +response.headers.get('Content-Length');
+          let received = 0;
+          const chunks = [];
+
+          return new ReadableStream({
+            start(controller) {
+              function push() {
+                reader.read().then(({ done, value }) => {
+                  if (done) {
+                    controller.close();
+                    return;
+                  }
+                  chunks.push(value);
+                  received += value.length;
+                  const percent = Math.round((received / contentLength) * 100);
+                  bar.style.width = percent + '%';
+                  controller.enqueue(value);
+                  push();
+                });
+              }
+              push();
+            }
+          });
+        })
+        .then(stream => new Response(stream))
+        .then(res => res.blob())
+        .then(blob => {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = filename;
+          a.click();
+        });
+    }
+
+    function downloadAll() {
+      const zip = new JSZip();
+      const folder = zip.folder("student-images");
+      const progressBars = document.querySelectorAll('.progress-bar');
+
+      let count = 0;
+
+      images.forEach((img, i) => {
+        fetch(img.url)
+          .then(res => res.blob())
+          .then(blob => {
+            folder.file(img.name, blob);
+            progressBars[i].style.width = '100%';
+            count++;
+            if (count === images.length) {
+              zip.generateAsync({ type: "blob" }).then(content => {
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(content);
+                a.download = "students.zip";
+                a.click();
+              });
+            }
+          });
+      });
+    }
+  </script>
+</body>
+</html>
