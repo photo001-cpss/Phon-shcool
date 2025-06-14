@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>แกลเลอรีภาพนักเรียน</title>
   <style>
     * {
       box-sizing: border-box;
     }
-
     body {
       font-family: 'Sarabun', sans-serif;
       margin: 0;
       padding: 20px;
       background: #f0f8ff;
     }
-
     h1 {
       text-align: center;
       color: #003366;
       margin-bottom: 40px;
     }
-
     .image-card {
       background: #ffffff;
       margin: 20px auto;
@@ -31,14 +28,12 @@
       width: 100%;
       box-shadow: 0 0 12px rgba(0,0,0,0.1);
     }
-
     .image-card img {
       width: 100%;
       height: auto;
       border-radius: 8px;
       cursor: pointer;
     }
-
     .note {
       text-align: center;
       font-size: 14px;
@@ -49,7 +44,7 @@
 </head>
 <body>
 
-  <h1>แกลเลอรีภาพ วิ่งโรงเรียนพล</h1>
+  <h1>แกลเลอรีภาพ วิ่งโรงเรียนพล      📱 กดแช่ค้างที่รูปเพื่อบันทึกภาพลงเครื่อง</h1>
 
   <div id="gallery"></div>
 
@@ -57,18 +52,18 @@
 
   <script>
     const images = [
-      { name: 'IMG_0506.jpeg', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_05063c0f1070d226dbd9.md.jpeg' },
-      { name: 'IMG_0507.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_05075e3b91983961c44e.md.png' },
-      { name: 'IMG_0501.png', url: 'https://img2.pic.in.th/pic/IMG_0501.md.png' },
-      { name: 'IMG_0498.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_0498e03c0989d88afd24.md.png' },
-      { name: 'IMG_0495.jpeg', url: 'https://img2.pic.in.th/pic/IMG_0495b476fba855ef560d.md.jpeg' },
-      { name: 'IMG_0496.png', url: 'https://img2.pic.in.th/pic/IMG_0496.md.png' },
-      { name: 'IMG_0497.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_04975ed57bbd0512f44e.md.png' }
+      { name: 'IMG_0506.jpeg', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_05063c0f1070d226dbd9.jpeg' },
+      { name: 'IMG_0507.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_05075e3b91983961c44e.png' },
+      { name: 'IMG_0501.png', url: 'https://img2.pic.in.th/pic/IMG_0501.png' },
+      { name: 'IMG_0498.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_0498e03c0989d88afd24.png' },
+      { name: 'IMG_0495.jpeg', url: 'https://img2.pic.in.th/pic/IMG_0495b476fba855ef560d.jpeg' },
+      { name: 'IMG_0496.png', url: 'https://img2.pic.in.th/pic/IMG_0496.png' },
+      { name: 'IMG_0497.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_04975ed57bbd0512f44e.png' }
     ];
 
     const gallery = document.getElementById('gallery');
 
-    images.forEach((img) => {
+    images.forEach(img => {
       const card = document.createElement('div');
       card.className = 'image-card';
 
