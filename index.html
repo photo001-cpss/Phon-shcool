@@ -44,7 +44,7 @@
 </head>
 <body>
 
-  <h1>แกลเลอรีภาพ วิ่งโรงเรียนพล      📱 กดแช่ค้างที่รูปเพื่อบันทึกภาพลงเครื่อง</h1>
+  <h1>แกลเลอรีภาพ วิ่งโรงเรียนพล 📱 กดแช่ค้างที่รูปเพื่อบันทึกภาพลงเครื่อง</h1>
 
   <div id="gallery"></div>
 
@@ -52,24 +52,39 @@
 
   <script>
     const images = [
-      { name: 'IMG_0506.jpeg', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_05063c0f1070d226dbd9.jpeg' },
-      { name: 'IMG_0507.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_05075e3b91983961c44e.png' },
-      { name: 'IMG_0501.png', url: 'https://img2.pic.in.th/pic/IMG_0501.png' },
-      { name: 'IMG_0498.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_0498e03c0989d88afd24.png' },
-      { name: 'IMG_0495.jpeg', url: 'https://img2.pic.in.th/pic/IMG_0495b476fba855ef560d.jpeg' },
-      { name: 'IMG_0496.png', url: 'https://img2.pic.in.th/pic/IMG_0496.png' },
-      { name: 'IMG_0497.png', url: 'https://img5.pic.in.th/file/secure-sv1/IMG_04975ed57bbd0512f44e.png' }
+      'https://img2.pic.in.th/pic/IMG_0510dfa66379dcc6c0d4.jpeg',
+      'https://img2.pic.in.th/pic/IMG_05086d0457318dd5a969.png',
+      'https://img2.pic.in.th/pic/IMG_0507.png',
+      'https://img5.pic.in.th/file/secure-sv1/IMG_0506170cff3c65a4257e.jpeg',
+      'https://img5.pic.in.th/file/secure-sv1/IMG_0505.png',
+      'https://img5.pic.in.th/file/secure-sv1/IMG_0504a07991b0d2207674.png',
+      'https://img2.pic.in.th/pic/IMG_0501c56fa84233c2078c.png',
+      'https://img5.pic.in.th/file/secure-sv1/IMG_0503eb12f39a90feab5b.png',
+      'https://img2.pic.in.th/pic/IMG_0500.png',
+      'https://img5.pic.in.th/file/secure-sv1/IMG_0502.png',
+      'https://img2.pic.in.th/pic/IMG_0499.png',
+      'https://img5.pic.in.th/file/secure-sv1/IMG_0498f21be7baa4b89ffa.png',
+      'https://img2.pic.in.th/pic/IMG_0497b6cedaeee8c05e0b.png',
+      'https://img5.pic.in.th/file/secure-sv1/IMG_0496.png',
+      'https://img2.pic.in.th/pic/IMG_04959248f7fc71ebb391.jpeg',
+      'https://img5.pic.in.th/file/secure-sv1/IMG_04614cadcea9d2e439d4.jpeg',
+      'https://img2.pic.in.th/pic/IMG_04595891763b0c1b739f.png',
+      'https://img5.pic.in.th/file/secure-sv1/IMG_0460507aa9f2f2ae2011.png',
+      'https://img2.pic.in.th/pic/IMG_045850a8a000c9f82197.png',
+      'https://img5.pic.in.th/file/secure-sv1/IMG_04573ef6262ef28464fd.png',
+      'https://img2.pic.in.th/pic/IMG_04565683017e731a9c07.png',
+      'https://img5.pic.in.th/file/secure-sv1/IMG_0455d9259110c6c84ed0.png'
     ];
 
     const gallery = document.getElementById('gallery');
 
-    images.forEach(img => {
+    images.forEach(url => {
       const card = document.createElement('div');
       card.className = 'image-card';
 
       const image = document.createElement('img');
-      image.src = img.url;
-      image.alt = img.name;
+      image.src = url;
+      image.alt = 'student image';
 
       card.appendChild(image);
       gallery.appendChild(card);
